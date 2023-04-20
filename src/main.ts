@@ -1,6 +1,6 @@
-import * as THREE from "three"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import * as dat from "lil-gui"
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'lil-gui'
 
 /**
  * Base
@@ -9,7 +9,7 @@ import * as dat from "lil-gui"
 const gui = new dat.GUI()
 
 // Canvas
-const canvas = document.querySelector("canvas.webgl") as HTMLCanvasElement
+const canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement
 
 // Scene
 const scene = new THREE.Scene()
@@ -29,17 +29,16 @@ scene.add(light)
 const material = new THREE.MeshStandardMaterial()
 material.metalness = 0.7
 material.roughness = 0.2
-gui.add(material, "metalness").min(0).max(1).step(0.0001)
-gui.add(material, "roughness").min(0).max(1).step(0.0001)
+gui.add(material, 'metalness').min(0).max(1).step(0.0001)
+gui.add(material, 'roughness').min(0).max(1).step(0.0001)
 
 const torus = new THREE.Mesh(
   new THREE.TorusGeometry(0.3, 0.2, 64, 128),
   material
 )
-torus.geometry.setAttribute(
-  "uv2",
-  new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2)
-)
+
+const uv = torus.geometry.getAttribute('uv') as THREE.BufferAttribute
+torus.geometry.setAttribute('uv2', new THREE.BufferAttribute(uv.array, 2))
 scene.add(torus)
 
 /**
@@ -50,7 +49,7 @@ const sizes = {
   height: window.innerHeight,
 }
 
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   // Update sizes
   sizes.width = window.innerWidth
   sizes.height = window.innerHeight
